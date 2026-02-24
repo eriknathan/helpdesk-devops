@@ -1,1 +1,282 @@
-{% extends 'base.html' %}{% block title %}Criar Usuário — HelpDesk DevOps{% endblock %}{% block content %}<div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8"><nav class="flex mb-6 text-sm" aria-label="Breadcrumb"><ol class="flex items-center space-x-2"><li><a href="/" class="text-gray-500 hover:text-indigo-600 transition-colors duration-200">Dashboard</a></li><li><svg class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg></li><li class="text-gray-900 font-medium">Criar Usuário</li></ol></nav><div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden"><div class="bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-5"><h1 class="text-xl font-bold text-white">Criar Usuário</h1><p class="text-indigo-100 text-sm mt-1">Cadastre um novo usuário e atribua a um time</p></div><div class="p-6"><form method="post" class="space-y-5">{% csrf_token %}<div class="grid grid-cols-1 sm:grid-cols-2 gap-4"><div><label for="id_first_name" class="block text-sm font-medium text-gray-700 mb-1">Nome</label>{{ form.first_name }}{% if form.first_name.errors %}<p class="text-rose-600 text-xs mt-1">{{ form.first_name.errors.0 }}</p>{% endif %}</div><div><label for="id_last_name" class="block text-sm font-medium text-gray-700 mb-1">Sobrenome</label>{{ form.last_name }}{% if form.last_name.errors %}<p class="text-rose-600 text-xs mt-1">{{ form.last_name.errors.0 }} </p>{% endif %}</div></div><div><label for="id_email" class="block text-sm font-medium text-gray-700 mb-1">E-mail</label>{{ form.email }}{% if form.email.errors %}<p class="text-rose-600 text-xs mt-1">{{ form.email.errors.0 }}</p>{% endif %}</div><div><label for="id_password" class="block text-sm font-medium text-gray-700 mb-1">Senha</label>{{ form.password }}{% if form.password.errors %}<p class="text-rose-600 text-xs mt-1">{{ form.password.errors.0 }}</p>{% endif %}</div><div class="grid grid-cols-1 sm:grid-cols-2 gap-4"><div><label for="id_role" class="block text-sm font-medium text-gray-700 mb-1">Perfil</label>{{ form.role }}{% if form.role.errors %}<p class="text-rose-600 text-xs mt-1">{{ form.role.errors.0 }}</p>{% endif %}</div><div><label for="id_team" class="block text-sm font-medium text-gray-700 mb-1">Time</label>{{ form.team }}{% if form.team.errors %}<p class="text-rose-600 text-xs mt-1">{{ form.team.errors.0 }}</p>{% endif %}</div></div><div class="flex items-center justify-end space-x-3 pt-2"><a href="/" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200">Cancelar</a><button type="submit" class="px-4 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-sm font-medium rounded-lg shadow-sm hover:from-indigo-700 hover:to-purple-700 transition-all duration-200">Criar Usuário</button></div></form></div></div></div>{% endblock %}
+{% extends 'base.html' %} {% block title %}Criar Usuário - HelpDesk DevOps{% endblock %} {% block content %}
+
+<!-- Lucide Icons Script -->
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<!-- Main Container -->
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+    <!-- Breadcrumbs -->
+    <nav class="flex items-center text-sm text-slate-500 mb-8 animate-[fadeIn_0.5s_ease-out]">
+        <a href="{% url 'dashboard' %}" class="flex items-center hover:text-indigo-600 transition-colors">
+            <i data-lucide="layout-dashboard" class="w-4 h-4 mr-1.5"></i> Dashboard
+        </a>
+        <i data-lucide="chevron-right" class="w-3 h-3 mx-2 text-slate-300"></i>
+        <a href="{% url 'accounts:user_list' %}" class="hover:text-indigo-600 transition-colors"> Usuários </a>
+        <i data-lucide="chevron-right" class="w-3 h-3 mx-2 text-slate-300"></i>
+        <span class="font-medium text-slate-900 bg-slate-200/50 px-2 py-0.5 rounded-md"> Criar Usuário </span>
+    </nav>
+
+    <!-- Split Card Container -->
+    <div
+        class="bg-white rounded-3xl shadow-2xl shadow-indigo-100/50 border border-slate-100 overflow-hidden flex flex-col lg:flex-row">
+
+        <!-- Left Column: Info Panel -->
+        <div
+            class="lg:w-1/3 bg-gradient-to-br from-indigo-600 via-indigo-700 to-blue-800 p-10 text-white flex flex-col justify-between relative overflow-hidden">
+            <!-- Decorative Background Element -->
+            <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-white/5 blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 -ml-16 -mb-16 w-48 h-48 rounded-full bg-indigo-400/20 blur-2xl"></div>
+
+            <div class="relative z-10">
+                <div class="p-3 bg-white/10 backdrop-blur-sm w-fit rounded-xl ring-1 ring-white/20 mb-6">
+                    <i data-lucide="user-plus-2" class="w-8 h-8 text-indigo-50"></i>
+                </div>
+                <h1 class="text-3xl font-bold tracking-tight mb-4 text-white">
+                    Novo Usuário
+                </h1>
+                <p class="text-indigo-100/90 leading-relaxed text-sm">
+                    Cadastre um novo membro na equipe para acessar os recursos do sistema HelpDesk DevOps.
+                </p>
+
+                <div class="mt-10 space-y-6">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-indigo-500/30 p-2 rounded-lg mt-1 ring-1 ring-white/10">
+                            <i data-lucide="shield-check" class="w-5 h-5 text-indigo-200"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-white">Níveis de Acesso</h3>
+                            <p class="text-xs text-indigo-200 mt-1">Defina permissões baseadas no perfil do usuário
+                                (Admin, Suporte, Usuário).</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="bg-blue-500/30 p-2 rounded-lg mt-1 ring-1 ring-white/10">
+                            <i data-lucide="key" class="w-5 h-5 text-indigo-200"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-white">Segurança</h3>
+                            <p class="text-xs text-indigo-200 mt-1">A senha temporária deve conter ao menos 8
+                                caracteres. O usuário poderá alterar depois.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative z-10 mt-12 pt-6 border-t border-white/10 text-xs text-indigo-200/80">
+                <p>Precisa de ajuda? <a href="#" class="text-white hover:underline underline-offset-2">Consulte a
+                        documentação</a>.</p>
+            </div>
+        </div>
+
+        <!-- Right Column: Form Engine -->
+        <div class="lg:w-2/3 p-8 lg:p-12 bg-white">
+            <form method="post" id="userForm" onsubmit="handleSubmit(event)" class="h-full flex flex-col">
+                {% csrf_token %}
+
+                <div class="flex-grow space-y-8">
+                    {% if form.errors %}
+                    <div class="bg-red-50 text-red-700 p-4 rounded-xl mb-6 ring-1 ring-red-200">
+                        <p class="font-semibold flex items-center gap-2">
+                            <i data-lucide="alert-circle" class="w-5 h-5"></i>
+                            Por favor, verifique os erros abaixo:
+                        </p>
+                        <ul class="list-disc pl-9 mt-2 text-sm text-red-600/90">
+                            {% for field, errors in form.errors.items %}
+                            {% for error in errors %}
+                            <li>{{ field|capfirst }}: {{ error }}</li>
+                            {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                    <!-- Row 1: Nome e Sobrenome -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Nome -->
+                        <div class="space-y-2">
+                            <label for="{{ form.first_name.id_for_label }}"
+                                class="block text-sm font-semibold text-slate-700">
+                                {{ form.first_name.label }} <span class="text-rose-500">*</span>
+                            </label>
+                            <div class="relative group">
+                                <div
+                                    class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-indigo-600 transition-colors">
+                                    <i data-lucide="user" class="w-[18px] h-[18px]"></i>
+                                </div>
+                                {{ form.first_name }}
+                            </div>
+                        </div>
+
+                        <!-- Sobrenome -->
+                        <div class="space-y-2">
+                            <label for="{{ form.last_name.id_for_label }}"
+                                class="block text-sm font-semibold text-slate-700">
+                                {{ form.last_name.label }} <span class="text-rose-500">*</span>
+                            </label>
+                            <div class="relative group">
+                                <div
+                                    class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-indigo-600 transition-colors">
+                                    <i data-lucide="user" class="w-[18px] h-[18px]"></i>
+                                </div>
+                                {{ form.last_name }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Email -->
+                    <div class="space-y-2">
+                        <label for="{{ form.email.id_for_label }}" class="block text-sm font-semibold text-slate-700">
+                            {{ form.email.label }} <span class="text-rose-500">*</span>
+                        </label>
+                        <div class="relative group">
+                            <div
+                                class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-indigo-600 transition-colors">
+                                <i data-lucide="mail" class="w-[18px] h-[18px]"></i>
+                            </div>
+                            {{ form.email }}
+                        </div>
+                    </div>
+
+                    <!-- Row 3: Senha -->
+                    <div class="space-y-2">
+                        <label for="{{ form.password.id_for_label }}"
+                            class="block text-sm font-semibold text-slate-700">
+                            {{ form.password.label }} <span class="text-rose-500">*</span>
+                        </label>
+                        <div class="relative group">
+                            <div
+                                class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-indigo-600 transition-colors">
+                                <i data-lucide="lock" class="w-[18px] h-[18px]"></i>
+                            </div>
+                            {{ form.password }}
+                            <!-- Toggle Password Visibility -->
+                            <button type="button" onclick="togglePassword()"
+                                class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-indigo-600 cursor-pointer transition-colors focus:outline-none rounded-r-xl">
+                                <i id="eyeIcon" data-lucide="eye" class="w-[18px] h-[18px]"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-slate-100 my-8"></div>
+
+                    <!-- Row 4: Perfil e Time -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Perfil -->
+                        <div class="space-y-2">
+                            <label for="{{ form.role.id_for_label }}"
+                                class="block text-sm font-semibold text-slate-700">
+                                {{ form.role.label }}
+                            </label>
+                            <div class="relative group">
+                                <div
+                                    class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-indigo-600 transition-colors">
+                                    <i data-lucide="badge-check" class="w-[18px] h-[18px]"></i>
+                                </div>
+                                {{ form.role }}
+                                <div
+                                    class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-slate-400">
+                                    <i data-lucide="chevrons-up-down" class="w-4 h-4"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Time -->
+                        <div class="space-y-2">
+                            <label for="{{ form.team.id_for_label }}"
+                                class="block text-sm font-semibold text-slate-700">
+                                {{ form.team.label }}
+                            </label>
+                            <div class="relative group">
+                                <div
+                                    class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-indigo-600 transition-colors">
+                                    <i data-lucide="network" class="w-[18px] h-[18px]"></i>
+                                </div>
+                                {{ form.team }}
+                                <div
+                                    class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-slate-400">
+                                    <i data-lucide="chevrons-up-down" class="w-4 h-4"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer de Ações -->
+                <div class="mt-10 pt-6 flex items-center justify-end gap-3 border-t border-slate-100">
+                    <a href="{% url 'accounts:user_list' %}"
+                        class="px-5 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-300">
+                        Cancelar
+                    </a>
+                    <button type="submit" id="submitBtn"
+                        class="group relative flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 shadow-[0_4px_14px_0_rgba(79,70,229,0.39)] hover:shadow-[0_6px_20px_rgba(79,70,229,0.23)] hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-70 disabled:cursor-not-allowed">
+                        <span id="btnText" class="flex items-center gap-2">
+                            Criar Usuário
+                            <i data-lucide="arrow-right"
+                                class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </span>
+                        <span id="btnLoading" class="hidden flex items-center gap-2">
+                            <svg class="animate-spin -ml-1 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                    stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                </path>
+                            </svg>
+                            Processando...
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer da Página -->
+    <div class="mt-12 text-center text-slate-400 text-xs">
+        <p>© 2026 HelpDesk DevOps. Todos os direitos reservados.</p>
+    </div>
+</div>
+
+<!-- JavaScript Logic -->
+<script>
+    lucide.createIcons();
+
+    // --- Toggle Password Visibility ---
+    function togglePassword() {
+        // Note: In forms.py we set id="password" for the widget, so this works.
+        const passwordInput = document.getElementById('password');
+        const eyeIcon = document.getElementById('eyeIcon');
+
+        if (passwordInput && eyeIcon) {
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.setAttribute('data-lucide', 'eye-off');
+                lucide.createIcons(); // re-render icon
+                eyeIcon.classList.add('text-indigo-500');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.setAttribute('data-lucide', 'eye');
+                lucide.createIcons(); // re-render icon
+                eyeIcon.classList.remove('text-indigo-500');
+            }
+        }
+    }
+
+    function handleSubmit(e) {
+        // e.preventDefault();
+        const btn = document.getElementById('submitBtn');
+        const btnText = document.getElementById('btnText');
+        const btnLoading = document.getElementById('btnLoading');
+
+        if (btn && btnText && btnLoading) {
+            // Loading UI
+            btn.disabled = true;
+            btnText.classList.add('hidden');
+            btnLoading.classList.remove('hidden');
+            // Allow form submission
+        }
+    }
+</script>
+
+{% endblock %}

@@ -8,6 +8,8 @@ class User(AbstractUser):
     class Role(models.TextChoices):
         CUSTOMER = 'CUSTOMER', 'Cliente'
         ADMIN = 'ADMIN', 'Administrador'
+        DEVELOPER = 'DEVELOPER', 'Desenvolvedor'
+        MANAGER = 'MANAGER', 'Gerente'
 
     username = None
     email = models.EmailField('e-mail', unique=True)

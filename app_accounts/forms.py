@@ -34,44 +34,92 @@ class UserCreateForm(forms.Form):
         label='Nome',
         max_length=150,
         widget=forms.TextInput(attrs={
-            'class': INPUT_CSS,
-            'placeholder': 'Nome',
+            'class': (
+                'block w-full pl-10 pr-4 py-3 bg-white/50 border '
+                'border-slate-200 rounded-xl text-slate-800 font-medium '
+                'placeholder-slate-400 focus:outline-none focus:ring-4 '
+                'focus:ring-indigo-500/10 focus:border-indigo-500 focus:bg-white '
+                'hover:bg-white hover:border-slate-300 '
+                'transition-all duration-300 shadow-sm'
+            ),
+            'placeholder': 'Ex: João',
         }),
     )
     last_name = forms.CharField(
         label='Sobrenome',
         max_length=150,
         widget=forms.TextInput(attrs={
-            'class': INPUT_CSS,
-            'placeholder': 'Sobrenome',
+            'class': (
+                'block w-full pl-10 pr-4 py-3 bg-white/50 border '
+                'border-slate-200 rounded-xl text-slate-800 font-medium '
+                'placeholder-slate-400 focus:outline-none focus:ring-4 '
+                'focus:ring-indigo-500/10 focus:border-indigo-500 focus:bg-white '
+                'hover:bg-white hover:border-slate-300 '
+                'transition-all duration-300 shadow-sm'
+            ),
+            'placeholder': 'Ex: Silva',
         }),
     )
     email = forms.EmailField(
-        label='E-mail',
+        label='E-mail Corporativo',
         widget=forms.EmailInput(attrs={
-            'class': INPUT_CSS,
-            'placeholder': 'usuario@email.com',
+            'class': (
+                'block w-full pl-10 pr-4 py-3 bg-white/50 border '
+                'border-slate-200 rounded-xl text-slate-800 font-medium '
+                'placeholder-slate-400 focus:outline-none focus:ring-4 '
+                'focus:ring-indigo-500/10 focus:border-indigo-500 focus:bg-white '
+                'hover:bg-white hover:border-slate-300 '
+                'transition-all duration-300 shadow-sm'
+            ),
+            'placeholder': 'usuario@empresa.com',
         }),
     )
     password = forms.CharField(
-        label='Senha',
+        label='Senha Temporária',
         widget=forms.PasswordInput(attrs={
-            'class': INPUT_CSS,
+            'class': (
+                'block w-full pl-10 pr-10 py-3 bg-white/50 border '
+                'border-slate-200 rounded-xl text-slate-800 font-medium '
+                'placeholder-slate-400 focus:outline-none focus:ring-4 '
+                'focus:ring-indigo-500/10 focus:border-indigo-500 focus:bg-white '
+                'hover:bg-white hover:border-slate-300 '
+                'transition-all duration-300 shadow-sm'
+            ),
             'placeholder': '••••••••',
+            'id': 'password',  # Explicit ID for JS toggle
         }),
     )
     role = forms.ChoiceField(
-        label='Perfil',
+        label='Perfil de Acesso',
         choices=User.Role.choices,
-        widget=forms.Select(attrs={'class': INPUT_CSS}),
+        widget=forms.Select(attrs={
+            'class': (
+                'appearance-none block w-full pl-10 pr-8 py-3 bg-white/50 '
+                'border border-slate-200 rounded-xl text-slate-800 font-medium '
+                'focus:outline-none focus:ring-4 focus:ring-indigo-500/10 '
+                'focus:border-indigo-500 focus:bg-white '
+                'hover:bg-white hover:border-slate-300 '
+                'transition-all duration-300 shadow-sm cursor-pointer'
+            ),
+        }),
     )
     team = forms.ModelChoiceField(
-        label='Time',
+        label='Atribuir a Time',
         queryset=Team.objects.all(),
         required=False,
         empty_label='Nenhum (atribuir depois)',
-        widget=forms.Select(attrs={'class': INPUT_CSS}),
+        widget=forms.Select(attrs={
+            'class': (
+                'appearance-none block w-full pl-10 pr-8 py-3 bg-white/50 '
+                'border border-slate-200 rounded-xl text-slate-800 font-medium '
+                'focus:outline-none focus:ring-4 focus:ring-indigo-500/10 '
+                'focus:border-indigo-500 focus:bg-white '
+                'hover:bg-white hover:border-slate-300 '
+                'transition-all duration-300 shadow-sm cursor-pointer'
+            ),
+        }),
     )
+
 
     def clean_email(self):
         email = self.cleaned_data['email']

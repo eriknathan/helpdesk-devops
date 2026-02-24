@@ -5,10 +5,10 @@ register = template.Library()
 STATUS_CLASSES = {
     'OPEN': 'bg-sky-100 text-sky-700',
     'TRIAGE': 'bg-amber-100 text-amber-700',
-    'IN_PROGRESS': 'bg-indigo-100 text-indigo-700',
+    'IN_PROGRESS': 'bg-violet-100 text-violet-700',
     'WAITING_CUSTOMER': 'bg-orange-100 text-orange-700',
     'RESOLVED': 'bg-emerald-100 text-emerald-700',
-    'CLOSED': 'bg-gray-100 text-gray-600',
+    'CLOSED': 'bg-slate-100 text-slate-600',
 }
 
 STATUS_LABELS = {
