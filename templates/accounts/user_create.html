@@ -1,222 +1,323 @@
-{% extends 'base.html' %} {% block title %}Criar Usuário - HelpDesk DevOps{% endblock %} {% block content %}
+{% extends 'base.html' %}
+{% block title %}Novo Usuário — HelpDesk DevOps{% endblock %}
+{% block content %}
+<div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-<!-- Lucide Icons Script -->
-<script src="https://unpkg.com/lucide@latest"></script>
-
-<!-- Main Container -->
-<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-
-    <!-- Breadcrumbs -->
-    <nav class="flex items-center text-sm text-slate-500 mb-8 animate-[fadeIn_0.5s_ease-out]">
-        <a href="{% url 'dashboard' %}" class="flex items-center hover:text-indigo-600 transition-colors">
-            <i data-lucide="layout-dashboard" class="w-4 h-4 mr-1.5"></i> Dashboard
-        </a>
-        <i data-lucide="chevron-right" class="w-3 h-3 mx-2 text-slate-300"></i>
-        <a href="{% url 'accounts:user_list' %}" class="hover:text-indigo-600 transition-colors"> Usuários </a>
-        <i data-lucide="chevron-right" class="w-3 h-3 mx-2 text-slate-300"></i>
-        <span class="font-medium text-slate-900 bg-slate-200/50 px-2 py-0.5 rounded-md"> Criar Usuário </span>
+    <!-- Breadcrumb -->
+    <nav class="flex mb-6 text-sm" aria-label="Breadcrumb">
+        <ol class="flex items-center space-x-2">
+            <li>
+                <a href="/" class="text-gray-500 hover:text-violet-600 transition-colors duration-200">Dashboard</a>
+            </li>
+            <li>
+                <svg class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+            </li>
+            <li>
+                <a href="{% url 'accounts:user_list' %}"
+                    class="text-gray-500 hover:text-violet-600 transition-colors duration-200">Usuários</a>
+            </li>
+            <li>
+                <svg class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+            </li>
+            <li class="text-gray-900 font-medium">Novo Usuário</li>
+        </ol>
     </nav>
 
-    <!-- Split Card Container -->
-    <div
-        class="bg-white rounded-3xl shadow-2xl shadow-indigo-100/50 border border-slate-100 overflow-hidden flex flex-col lg:flex-row">
+    <!-- Card -->
+    <div class="bg-white rounded-xl shadow-xl border border-slate-200 overflow-hidden">
 
-        <!-- Left Column: Info Panel -->
-        <div
-            class="lg:w-1/3 bg-gradient-to-br from-indigo-600 via-indigo-700 to-blue-800 p-10 text-white flex flex-col justify-between relative overflow-hidden">
-            <!-- Decorative Background Element -->
-            <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-white/5 blur-3xl"></div>
-            <div class="absolute bottom-0 left-0 -ml-16 -mb-16 w-48 h-48 rounded-full bg-indigo-400/20 blur-2xl"></div>
-
-            <div class="relative z-10">
-                <div class="p-3 bg-white/10 backdrop-blur-sm w-fit rounded-xl ring-1 ring-white/20 mb-6">
-                    <i data-lucide="user-plus-2" class="w-8 h-8 text-indigo-50"></i>
+        <!-- Gradient Header -->
+        <div class="bg-gradient-to-r from-violet-500 to-purple-600 px-6 py-5">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                    </svg>
                 </div>
-                <h1 class="text-3xl font-bold tracking-tight mb-4 text-white">
-                    Novo Usuário
-                </h1>
-                <p class="text-indigo-100/90 leading-relaxed text-sm">
-                    Cadastre um novo membro na equipe para acessar os recursos do sistema HelpDesk DevOps.
-                </p>
-
-                <div class="mt-10 space-y-6">
-                    <div class="flex items-start gap-4">
-                        <div class="bg-indigo-500/30 p-2 rounded-lg mt-1 ring-1 ring-white/10">
-                            <i data-lucide="shield-check" class="w-5 h-5 text-indigo-200"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-semibold text-white">Níveis de Acesso</h3>
-                            <p class="text-xs text-indigo-200 mt-1">Defina permissões baseadas no perfil do usuário
-                                (Admin, Suporte, Usuário).</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4">
-                        <div class="bg-blue-500/30 p-2 rounded-lg mt-1 ring-1 ring-white/10">
-                            <i data-lucide="key" class="w-5 h-5 text-indigo-200"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-semibold text-white">Segurança</h3>
-                            <p class="text-xs text-indigo-200 mt-1">A senha temporária deve conter ao menos 8
-                                caracteres. O usuário poderá alterar depois.</p>
-                        </div>
-                    </div>
+                <div>
+                    <h1 class="text-xl font-bold text-white">Novo Usuário</h1>
+                    <p class="text-violet-100 text-sm mt-0.5">Cadastre um novo membro para o sistema.</p>
                 </div>
-            </div>
-
-            <div class="relative z-10 mt-12 pt-6 border-t border-white/10 text-xs text-indigo-200/80">
-                <p>Precisa de ajuda? <a href="#" class="text-white hover:underline underline-offset-2">Consulte a
-                        documentação</a>.</p>
             </div>
         </div>
 
-        <!-- Right Column: Form Engine -->
-        <div class="lg:w-2/3 p-8 lg:p-12 bg-white">
-            <form method="post" id="userForm" onsubmit="handleSubmit(event)" class="h-full flex flex-col">
+        <!-- Form Body -->
+        <div class="p-6 sm:p-8">
+            <form method="post" id="userForm" class="space-y-6">
                 {% csrf_token %}
 
-                <div class="flex-grow space-y-8">
-                    {% if form.errors %}
-                    <div class="bg-red-50 text-red-700 p-4 rounded-xl mb-6 ring-1 ring-red-200">
-                        <p class="font-semibold flex items-center gap-2">
-                            <i data-lucide="alert-circle" class="w-5 h-5"></i>
-                            Por favor, verifique os erros abaixo:
-                        </p>
-                        <ul class="list-disc pl-9 mt-2 text-sm text-red-600/90">
-                            {% for field, errors in form.errors.items %}
-                            {% for error in errors %}
-                            <li>{{ field|capfirst }}: {{ error }}</li>
-                            {% endfor %}
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    {% endif %}
+                <!-- Global Errors -->
+                {% if form.errors %}
+                <div class="bg-rose-50 border border-rose-200 text-rose-700 px-4 py-3 rounded-lg" role="alert">
+                    <p class="text-sm font-semibold flex items-center gap-2">
+                        <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                            stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                        </svg>
+                        Corrija os erros abaixo para continuar.
+                    </p>
+                </div>
+                {% endif %}
 
-                    <!-- Row 1: Nome e Sobrenome -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- ── Dados Pessoais ── -->
+                <div>
+                    <h3
+                        class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                        <svg class="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                            stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                        </svg>
+                        Dados Pessoais
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <!-- Nome -->
-                        <div class="space-y-2">
+                        <div>
                             <label for="{{ form.first_name.id_for_label }}"
-                                class="block text-sm font-semibold text-slate-700">
-                                {{ form.first_name.label }} <span class="text-rose-500">*</span>
+                                class="block text-sm font-medium text-slate-700 mb-1">
+                                Nome <span class="text-rose-500">*</span>
                             </label>
-                            <div class="relative group">
-                                <div
-                                    class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-indigo-600 transition-colors">
-                                    <i data-lucide="user" class="w-[18px] h-[18px]"></i>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <svg class="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0" />
+                                    </svg>
                                 </div>
                                 {{ form.first_name }}
                             </div>
+                            {% if form.first_name.errors %}
+                            <p class="text-rose-600 text-xs mt-1">{{ form.first_name.errors.0 }}</p>
+                            {% endif %}
                         </div>
 
                         <!-- Sobrenome -->
-                        <div class="space-y-2">
+                        <div>
                             <label for="{{ form.last_name.id_for_label }}"
-                                class="block text-sm font-semibold text-slate-700">
-                                {{ form.last_name.label }} <span class="text-rose-500">*</span>
+                                class="block text-sm font-medium text-slate-700 mb-1">
+                                Sobrenome <span class="text-rose-500">*</span>
                             </label>
-                            <div class="relative group">
-                                <div
-                                    class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-indigo-600 transition-colors">
-                                    <i data-lucide="user" class="w-[18px] h-[18px]"></i>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <svg class="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0" />
+                                    </svg>
                                 </div>
                                 {{ form.last_name }}
                             </div>
+                            {% if form.last_name.errors %}
+                            <p class="text-rose-600 text-xs mt-1">{{ form.last_name.errors.0 }}</p>
+                            {% endif %}
                         </div>
                     </div>
+                </div>
 
-                    <!-- Row 2: Email -->
-                    <div class="space-y-2">
-                        <label for="{{ form.email.id_for_label }}" class="block text-sm font-semibold text-slate-700">
-                            {{ form.email.label }} <span class="text-rose-500">*</span>
+                <!-- ── Credenciais ── -->
+                <div>
+                    <h3
+                        class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                        <svg class="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                            stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                        </svg>
+                        Credenciais de Acesso
+                    </h3>
+
+                    <!-- Email -->
+                    <div class="mb-4">
+                        <label for="{{ form.email.id_for_label }}"
+                            class="block text-sm font-medium text-slate-700 mb-1">
+                            E-mail Corporativo <span class="text-rose-500">*</span>
                         </label>
-                        <div class="relative group">
-                            <div
-                                class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-indigo-600 transition-colors">
-                                <i data-lucide="mail" class="w-[18px] h-[18px]"></i>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg class="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                                </svg>
                             </div>
                             {{ form.email }}
                         </div>
+                        {% if form.email.errors %}
+                        <p class="text-rose-600 text-xs mt-1">{{ form.email.errors.0 }}</p>
+                        {% endif %}
                     </div>
 
-                    <!-- Row 3: Senha -->
-                    <div class="space-y-2">
+                    <!-- Senha -->
+                    <div>
                         <label for="{{ form.password.id_for_label }}"
-                            class="block text-sm font-semibold text-slate-700">
-                            {{ form.password.label }} <span class="text-rose-500">*</span>
+                            class="flex items-center justify-between text-sm font-medium text-slate-700 mb-1">
+                            <span>Senha Temporária <span class="text-rose-500">*</span></span>
+                            <span class="text-xs font-normal text-slate-400">Mín. 8 caracteres</span>
                         </label>
-                        <div class="relative group">
-                            <div
-                                class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-indigo-600 transition-colors">
-                                <i data-lucide="lock" class="w-[18px] h-[18px]"></i>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg class="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
+                                </svg>
                             </div>
                             {{ form.password }}
-                            <!-- Toggle Password Visibility -->
-                            <button type="button" onclick="togglePassword()"
-                                class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-indigo-600 cursor-pointer transition-colors focus:outline-none rounded-r-xl">
-                                <i id="eyeIcon" data-lucide="eye" class="w-[18px] h-[18px]"></i>
+                            <button type="button" id="togglePasswordBtn"
+                                class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-violet-600 cursor-pointer transition-colors focus:outline-none"
+                                aria-label="Mostrar ou ocultar senha">
+                                <svg id="eyeIconShow" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                <svg id="eyeIconHide" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M3.98 8.223A10.477 10.477 0 001.934 12c1.292 4.338 5.31 7.5 10.066 7.5.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+                                </svg>
                             </button>
                         </div>
-                    </div>
+                        {% if form.password.errors %}
+                        <p class="text-rose-600 text-xs mt-1">{{ form.password.errors.0 }}</p>
+                        {% endif %}
 
-                    <div class="border-t border-slate-100 my-8"></div>
-
-                    <!-- Row 4: Perfil e Time -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Perfil -->
-                        <div class="space-y-2">
-                            <label for="{{ form.role.id_for_label }}"
-                                class="block text-sm font-semibold text-slate-700">
-                                {{ form.role.label }}
-                            </label>
-                            <div class="relative group">
-                                <div
-                                    class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-indigo-600 transition-colors">
-                                    <i data-lucide="badge-check" class="w-[18px] h-[18px]"></i>
-                                </div>
-                                {{ form.role }}
-                                <div
-                                    class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-slate-400">
-                                    <i data-lucide="chevrons-up-down" class="w-4 h-4"></i>
-                                </div>
+                        <!-- Password Strength Bar -->
+                        <div id="strengthContainer" class="hidden mt-3 space-y-2">
+                            <div class="flex gap-1">
+                                <div id="bar1"
+                                    class="h-1.5 flex-1 rounded-full bg-slate-200 transition-all duration-300"></div>
+                                <div id="bar2"
+                                    class="h-1.5 flex-1 rounded-full bg-slate-200 transition-all duration-300"></div>
+                                <div id="bar3"
+                                    class="h-1.5 flex-1 rounded-full bg-slate-200 transition-all duration-300"></div>
+                                <div id="bar4"
+                                    class="h-1.5 flex-1 rounded-full bg-slate-200 transition-all duration-300"></div>
                             </div>
-                        </div>
-
-                        <!-- Time -->
-                        <div class="space-y-2">
-                            <label for="{{ form.team.id_for_label }}"
-                                class="block text-sm font-semibold text-slate-700">
-                                {{ form.team.label }}
-                            </label>
-                            <div class="relative group">
-                                <div
-                                    class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-indigo-600 transition-colors">
-                                    <i data-lucide="network" class="w-[18px] h-[18px]"></i>
+                            <div class="flex items-center justify-between">
+                                <p id="strengthLabel" class="text-xs text-slate-400"></p>
+                            </div>
+                            <!-- Requirements checklist -->
+                            <div class="grid grid-cols-2 gap-x-4 gap-y-1.5">
+                                <div id="req-length" class="flex items-center gap-1.5 text-xs text-slate-400">
+                                    <svg class="w-3.5 h-3.5 req-icon" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10" />
+                                    </svg>
+                                    <span>8+ caracteres</span>
                                 </div>
-                                {{ form.team }}
-                                <div
-                                    class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-slate-400">
-                                    <i data-lucide="chevrons-up-down" class="w-4 h-4"></i>
+                                <div id="req-upper" class="flex items-center gap-1.5 text-xs text-slate-400">
+                                    <svg class="w-3.5 h-3.5 req-icon" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10" />
+                                    </svg>
+                                    <span>Letra maiúscula</span>
+                                </div>
+                                <div id="req-number" class="flex items-center gap-1.5 text-xs text-slate-400">
+                                    <svg class="w-3.5 h-3.5 req-icon" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10" />
+                                    </svg>
+                                    <span>Número</span>
+                                </div>
+                                <div id="req-special" class="flex items-center gap-1.5 text-xs text-slate-400">
+                                    <svg class="w-3.5 h-3.5 req-icon" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10" />
+                                    </svg>
+                                    <span>Caractere especial</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Footer de Ações -->
-                <div class="mt-10 pt-6 flex items-center justify-end gap-3 border-t border-slate-100">
+                <!-- ── Configurações de Acesso ── -->
+                <div>
+                    <h3
+                        class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                        <svg class="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                            stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        Configurações de Acesso
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Perfil -->
+                        <div>
+                            <label for="{{ form.role.id_for_label }}"
+                                class="block text-sm font-medium text-slate-700 mb-1">
+                                Perfil de Acesso
+                            </label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <svg class="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+                                    </svg>
+                                </div>
+                                {{ form.role }}
+                            </div>
+                            {% if form.role.errors %}
+                            <p class="text-rose-600 text-xs mt-1">{{ form.role.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <!-- Projeto -->
+                        <div>
+                            <label for="{{ form.project.id_for_label }}"
+                                class="block text-sm font-medium text-slate-700 mb-1">
+                                Projeto <span class="text-xs font-normal text-slate-400">(opcional)</span>
+                            </label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <svg class="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />
+                                    </svg>
+                                </div>
+                                {{ form.project }}
+                            </div>
+                            {% if form.project.errors %}
+                            <p class="text-rose-600 text-xs mt-1">{{ form.project.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Actions -->
+                <div class="flex items-center justify-end space-x-3 pt-4 border-t border-slate-100 mt-6">
                     <a href="{% url 'accounts:user_list' %}"
-                        class="px-5 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-300">
+                        class="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors duration-200">
                         Cancelar
                     </a>
                     <button type="submit" id="submitBtn"
-                        class="group relative flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 shadow-[0_4px_14px_0_rgba(79,70,229,0.39)] hover:shadow-[0_6px_20px_rgba(79,70,229,0.23)] hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-70 disabled:cursor-not-allowed">
+                        class="group relative px-5 py-2.5 bg-gradient-to-r from-violet-500 to-purple-600 text-white text-sm font-medium rounded-lg shadow-md shadow-violet-500/20 hover:from-violet-600 hover:to-purple-700 transition-all duration-200 transform hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0">
                         <span id="btnText" class="flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                            </svg>
                             Criar Usuário
-                            <i data-lucide="arrow-right"
-                                class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
                         </span>
                         <span id="btnLoading" class="hidden flex items-center gap-2">
-                            <svg class="animate-spin -ml-1 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg"
+                            <svg class="animate-spin h-4 w-4 text-white/80" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
                                     stroke-width="4"></circle>
@@ -224,59 +325,107 @@
                                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
                                 </path>
                             </svg>
-                            Processando...
+                            Criando…
                         </span>
                     </button>
                 </div>
             </form>
         </div>
     </div>
-
-    <!-- Footer da Página -->
-    <div class="mt-12 text-center text-slate-400 text-xs">
-        <p>© 2026 HelpDesk DevOps. Todos os direitos reservados.</p>
-    </div>
 </div>
 
-<!-- JavaScript Logic -->
 <script>
-    lucide.createIcons();
+    (function () {
+        /* ── Helpers ── */
+        const $ = (id) => document.getElementById(id);
+        const passwordInput = $('password');
 
-    // --- Toggle Password Visibility ---
-    function togglePassword() {
-        // Note: In forms.py we set id="password" for the widget, so this works.
-        const passwordInput = document.getElementById('password');
-        const eyeIcon = document.getElementById('eyeIcon');
+        /* ── Password Visibility Toggle ── */
+        const toggleBtn = $('togglePasswordBtn');
+        if (toggleBtn && passwordInput) {
+            toggleBtn.addEventListener('click', function () {
+                const isHidden = passwordInput.type === 'password';
+                passwordInput.type = isHidden ? 'text' : 'password';
+                $('eyeIconShow').classList.toggle('hidden', isHidden);
+                $('eyeIconHide').classList.toggle('hidden', !isHidden);
+            });
+        }
 
-        if (passwordInput && eyeIcon) {
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                eyeIcon.setAttribute('data-lucide', 'eye-off');
-                lucide.createIcons(); // re-render icon
-                eyeIcon.classList.add('text-indigo-500');
-            } else {
-                passwordInput.type = 'password';
-                eyeIcon.setAttribute('data-lucide', 'eye');
-                lucide.createIcons(); // re-render icon
-                eyeIcon.classList.remove('text-indigo-500');
+        /* ── Password Strength ── */
+        const strengthConfig = [
+            { label: 'Muito fraca', color: 'bg-red-500', textClass: 'text-red-500', bars: 1 },
+            { label: 'Fraca', color: 'bg-orange-400', textClass: 'text-orange-500', bars: 2 },
+            { label: 'Razoável', color: 'bg-yellow-400', textClass: 'text-yellow-600', bars: 3 },
+            { label: 'Forte', color: 'bg-emerald-500', textClass: 'text-emerald-600', bars: 4 },
+        ];
+
+        const requirements = {
+            length: { el: $('req-length'), test: (pw) => pw.length >= 8 },
+            upper: { el: $('req-upper'), test: (pw) => /[A-Z]/.test(pw) },
+            number: { el: $('req-number'), test: (pw) => /[0-9]/.test(pw) },
+            special: { el: $('req-special'), test: (pw) => /[^A-Za-z0-9]/.test(pw) },
+        };
+
+        const checkSvg = '<svg class="w-3.5 h-3.5 req-icon text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+        const circleSvg = '<svg class="w-3.5 h-3.5 req-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>';
+
+        function updateStrength(pw) {
+            const container = $('strengthContainer');
+            const label = $('strengthLabel');
+            const bars = [$('bar1'), $('bar2'), $('bar3'), $('bar4')];
+
+            if (!pw) {
+                container.classList.add('hidden');
+                return;
             }
-        }
-    }
+            container.classList.remove('hidden');
 
-    function handleSubmit(e) {
-        // e.preventDefault();
-        const btn = document.getElementById('submitBtn');
-        const btnText = document.getElementById('btnText');
-        const btnLoading = document.getElementById('btnLoading');
+            /* Update checklist icons */
+            let score = 0;
+            Object.values(requirements).forEach(function (r) {
+                const passed = r.test(pw);
+                if (passed) score++;
+                const span = r.el.querySelector('span');
+                r.el.classList.toggle('text-emerald-600', passed);
+                r.el.classList.toggle('text-slate-400', !passed);
+                /* Replace SVG icon */
+                const oldIcon = r.el.querySelector('.req-icon');
+                if (oldIcon) {
+                    oldIcon.outerHTML = passed ? checkSvg : circleSvg;
+                }
+            });
 
-        if (btn && btnText && btnLoading) {
-            // Loading UI
-            btn.disabled = true;
-            btnText.classList.add('hidden');
-            btnLoading.classList.remove('hidden');
-            // Allow form submission
+            /* Update bars */
+            const idx = Math.max(0, score - 1);
+            const level = strengthConfig[idx];
+            bars.forEach(function (b, i) {
+                b.className = 'h-1.5 flex-1 rounded-full transition-all duration-300 ' +
+                    (i < level.bars ? level.color : 'bg-slate-200');
+            });
+
+            label.textContent = level.label;
+            label.className = 'text-xs font-medium ' + level.textClass;
         }
-    }
+
+        if (passwordInput) {
+            passwordInput.addEventListener('input', function (e) {
+                updateStrength(e.target.value);
+            });
+        }
+
+        /* ── Submit Loader ── */
+        var form = $('userForm');
+        if (form) {
+            form.addEventListener('submit', function () {
+                var btn = $('submitBtn');
+                var btnText = $('btnText');
+                var loading = $('btnLoading');
+                if (!btn || btnText.classList.contains('hidden')) return;
+                btn.disabled = true;
+                btnText.classList.add('hidden');
+                loading.classList.remove('hidden');
+            });
+        }
+    })();
 </script>
-
 {% endblock %}

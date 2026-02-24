@@ -2,7 +2,11 @@
 module.exports = {
   content: [
     './templates/**/*.html',
-    './**/*.py',
+    './app_accounts/**/*.py',
+    './app_projects/**/*.py',
+    './app_teams/**/*.py',
+    './app_tickets/**/*.py',
+    './helpdesk/**/*.py',
   ],
   theme: {
     extend: {

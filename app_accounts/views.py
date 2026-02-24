@@ -6,7 +6,6 @@ from django.views import View
 
 from app_accounts.forms import LoginForm, UserCreateForm, UserEditForm
 from app_accounts.models import User
-from app_teams.models import TeamMember
 
 
 class AdminRequiredMixin(LoginRequiredMixin):
@@ -62,7 +61,7 @@ class ProfileView(LoginRequiredMixin, View):
 class AdminUserListView(AdminRequiredMixin, View):
     def get(self, request):
         users = User.objects.prefetch_related(
-            'team_memberships__team',
+            'projects',
         ).order_by('-created_at')
         return render(
             request,
@@ -88,9 +87,9 @@ class AdminUserCreateView(AdminRequiredMixin, View):
                 last_name=form.cleaned_data['last_name'],
                 role=form.cleaned_data['role'],
             )
-            team = form.cleaned_data.get('team')
-            if team:
-                TeamMember.objects.create(user=user, team=team)
+            project = form.cleaned_data.get('project')
+            if project:
+                project.members.add(user)
             messages.success(
                 request,
                 f'Usuário {user.full_name} criado com sucesso!',
@@ -104,7 +103,7 @@ class AdminUserCreateView(AdminRequiredMixin, View):
 class AdminUserDetailView(AdminRequiredMixin, View):
     def get(self, request, pk):
         target_user = get_object_or_404(
-            User.objects.prefetch_related('team_memberships__team'),
+            User.objects.prefetch_related('projects'),
             pk=pk,
         )
         return render(
@@ -115,11 +114,9 @@ class AdminUserDetailView(AdminRequiredMixin, View):
 
 
 class AdminUserEditView(AdminRequiredMixin, View):
-    def _get_current_team(self, target_user):
-        membership = target_user.team_memberships.select_related(
-            'team',
-        ).first()
-        return membership.team if membership else None
+    @staticmethod
+    def _get_current_project(target_user):
+        return target_user.projects.first()
 
     def get(self, request, pk):
         target_user = get_object_or_404(User, pk=pk)
@@ -130,7 +127,7 @@ class AdminUserEditView(AdminRequiredMixin, View):
                 'email': target_user.email,
                 'role': target_user.role,
                 'is_active': target_user.is_active,
-                'team': self._get_current_team(target_user),
+                'project': self._get_current_project(target_user),
             },
             user_instance=target_user,
         )
@@ -157,12 +154,10 @@ class AdminUserEditView(AdminRequiredMixin, View):
                 target_user.set_password(password)
             target_user.save()
 
-            team = form.cleaned_data.get('team')
-            target_user.team_memberships.all().delete()
-            if team:
-                TeamMember.objects.create(
-                    user=target_user, team=team,
-                )
+            project = form.cleaned_data.get('project')
+            target_user.projects.clear()
+            if project:
+                project.members.add(target_user)
 
             messages.success(
                 request,

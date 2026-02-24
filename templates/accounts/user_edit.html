@@ -1,1 +1,57 @@
-{% extends 'base.html' %}{% block title %}Editar {{ target_user.full_name }} — HelpDesk DevOps{% endblock %}{% block content %}<div class="p-6 lg:p-8 max-w-2xl"><nav class="flex mb-6 text-sm" aria-label="Breadcrumb"><ol class="flex items-center space-x-2"><li><a href="/" class="text-slate-500 hover:text-violet-600 transition-colors duration-200">Dashboard</a></li><li><svg class="h-4 w-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg></li><li><a href="{% url 'accounts:user_list' %}" class="text-slate-500 hover:text-violet-600 transition-colors duration-200">Usuários</a></li><li><svg class="h-4 w-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg></li><li><a href="{% url 'accounts:user_detail' target_user.pk %}" class="text-slate-500 hover:text-violet-600 transition-colors duration-200">{{ target_user.full_name }}</a></li><li><svg class="h-4 w-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg></li><li class="text-slate-900 font-medium">Editar</li></ol></nav><div class="bg-white rounded-xl shadow-sm border border-slate-200/60 overflow-hidden"><div class="bg-gradient-to-r from-violet-600 to-purple-600 px-6 py-5"><h1 class="text-xl font-bold text-white">Editar Usuário</h1><p class="text-violet-100 text-sm mt-1">{{ target_user.full_name }}</p></div><div class="p-6"><form method="post" class="space-y-5">{% csrf_token %}<div class="grid grid-cols-1 sm:grid-cols-2 gap-4"><div><label for="id_first_name" class="block text-sm font-medium text-slate-700 mb-1">Nome</label>{{ form.first_name }}{% if form.first_name.errors %}<p class="text-rose-600 text-xs mt-1">{{ form.first_name.errors.0 }}</p>{% endif %}</div><div><label for="id_last_name" class="block text-sm font-medium text-slate-700 mb-1">Sobrenome</label>{{ form.last_name }}{% if form.last_name.errors %}<p class="text-rose-600 text-xs mt-1">{{ form.last_name.errors.0 }} </p>{% endif %}</div></div><div><label for="id_email" class="block text-sm font-medium text-slate-700 mb-1">E-mail</label>{{ form.email }}{% if form.email.errors %}<p class="text-rose-600 text-xs mt-1">{{ form.email.errors.0 }}</p>{% endif %}</div><div><label for="id_password" class="block text-sm font-medium text-slate-700 mb-1">Nova Senha</label>{{ form.password }}{% if form.password.errors %}<p class="text-rose-600 text-xs mt-1">{{ form.password.errors.0 }}</p>{% endif %}<p class="text-xs text-slate-400 mt-1">Deixe em branco para manter a senha atual.</p></div><div class="grid grid-cols-1 sm:grid-cols-2 gap-4"><div><label for="id_role" class="block text-sm font-medium text-slate-700 mb-1">Perfil</label>{{ form.role }}{% if form.role.errors %}<p class="text-rose-600 text-xs mt-1">{{ form.role.errors.0 }}</p>{% endif %}</div><div><label for="id_team" class="block text-sm font-medium text-slate-700 mb-1">Time</label>{{ form.team }}{% if form.team.errors %}<p class="text-rose-600 text-xs mt-1">{{ form.team.errors.0 }}</p>{% endif %}</div></div><div class="flex items-center space-x-3"><div class="flex items-center">{{ form.is_active }}<label for="id_is_active" class="ml-2 text-sm font-medium text-slate-700">Usuário ativo</label></div></div><div class="flex items-center justify-end space-x-3 pt-2"><a href="{% url 'accounts:user_detail' target_user.pk %}" class="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors duration-200">Cancelar</a><button type="submit" class="px-4 py-2.5 bg-violet-600 text-white text-sm font-medium rounded-lg shadow-sm hover:bg-violet-700 transition-all duration-200">Salvar Alterações</button></div></form></div></div></div>{% endblock %}
+{% extends 'base.html' %}{% block title %}Editar {{ target_user.full_name }} — HelpDesk DevOps{% endblock %}{% block content %}<div class="p-6 lg:p-8 max-w-2xl">
+    <nav class="flex mb-6 text-sm" aria-label="Breadcrumb">
+        <ol class="flex items-center space-x-2">
+            <li><a href="/" class="text-slate-500 hover:text-violet-600 transition-colors duration-200">Dashboard</a>
+            </li>
+            <li><svg class="h-4 w-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg></li>
+            <li><a href="{% url 'accounts:user_list' %}"
+                    class="text-slate-500 hover:text-violet-600 transition-colors duration-200">Usuários</a></li>
+            <li><svg class="h-4 w-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg></li>
+            <li><a href="{% url 'accounts:user_detail' target_user.pk %}"
+                    class="text-slate-500 hover:text-violet-600 transition-colors duration-200">{{ target_user.full_name }}</a></li>
+            <li><svg class="h-4 w-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg></li>
+            <li class="text-slate-900 font-medium">Editar</li>
+        </ol>
+    </nav>
+    <div class="bg-white rounded-xl shadow-sm border border-slate-200/60 overflow-hidden">
+        <div class="bg-gradient-to-r from-violet-600 to-purple-600 px-6 py-5">
+            <h1 class="text-xl font-bold text-white">Editar Usuário</h1>
+            <p class="text-violet-100 text-sm mt-1">{{ target_user.full_name }}</p>
+        </div>
+        <div class="p-6">
+            <form method="post" class="space-y-5">{% csrf_token %}<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div><label for="id_first_name" class="block text-sm font-medium text-slate-700 mb-1">Nome</label>{{ form.first_name }}{% if form.first_name.errors %}<p class="text-rose-600 text-xs mt-1">{{ form.first_name.errors.0 }}</p>{% endif %}</div>
+                    <div><label for="id_last_name"
+                            class="block text-sm font-medium text-slate-700 mb-1">Sobrenome</label>{{ form.last_name }}{% if form.last_name.errors %}<p class="text-rose-600 text-xs mt-1">{{ form.last_name.errors.0 }} </p>{% endif %}</div>
+                </div>
+                <div><label for="id_email" class="block text-sm font-medium text-slate-700 mb-1">E-mail</label>{{ form.email }}{% if form.email.errors %}<p class="text-rose-600 text-xs mt-1">{{ form.email.errors.0 }}</p>{% endif %}</div>
+                <div><label for="id_password" class="block text-sm font-medium text-slate-700 mb-1">Nova Senha</label>{{ form.password }}{% if form.password.errors %}<p class="text-rose-600 text-xs mt-1">{{ form.password.errors.0 }}</p>{% endif %}<p class="text-xs text-slate-400 mt-1">Deixe em branco
+                        para manter a senha atual.</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div><label for="id_role" class="block text-sm font-medium text-slate-700 mb-1">Perfil</label>{{ form.role }}{% if form.role.errors %}<p class="text-rose-600 text-xs mt-1">{{ form.role.errors.0 }}</p>{% endif %}</div>
+                    <div><label for="id_project" class="block text-sm font-medium text-slate-700 mb-1">Projeto</label>{{ form.project }}{% if form.project.errors %}<p class="text-rose-600 text-xs mt-1">{{ form.project.errors.0 }}</p>{% endif %}</div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="flex items-center">{{ form.is_active }}<label for="id_is_active"
+                            class="ml-2 text-sm font-medium text-slate-700">Usuário ativo</label></div>
+                </div>
+                <div class="flex items-center justify-end space-x-3 pt-2"><a
+                        href="{% url 'accounts:user_detail' target_user.pk %}"
+                        class="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors duration-200">Cancelar</a><button
+                        type="submit"
+                        class="px-4 py-2.5 bg-violet-600 text-white text-sm font-medium rounded-lg shadow-sm hover:bg-violet-700 transition-all duration-200">Salvar
+                        Alterações</button></div>
+            </form>
+        </div>
+    </div>
+</div>{% endblock %}
